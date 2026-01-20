@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Grille d’analyse – Organigramme interactif</title>
+
+<script src="https://balkangraph.com/js/latest/OrgChart.js"></script>
+
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: serif;
+}
+#chart {
+  width: 100%;
+  height: 100vh;
+}
+</style>
+</head>
+
+<body>
+<div id="chart"></div>
+
+<script>
+var chart = new OrgChart(document.getElementById("chart"), {
+  enableSearch: false,
+  mouseScrool: OrgChart.action.zoom,
+  nodeBinding: {
+    field_0: "name",
+    field_1: "description"
+  },
+  nodes: [
+    { id: 1, name: "Grille d’analyse" },
+
+    { id: 2, pid: 1, name: "Catégorie 1", description: "Description" },
+    { id: 3, pid: 1, name: "Catégorie 2", description: "Description" },
+    { id: 4, pid: 1, name: "Catégorie 3", description: "Description" },
+    { id: 5, pid: 1, name: "Catégorie 4", description: "Description" },
+    { id: 6, pid: 1, name: "Catégorie 5", description: "Description" }
+  ]
+});
+</script>
+</body>
+</html>
