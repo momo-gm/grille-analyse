@@ -1,11 +1,11 @@
 body {
-  font-family: Arial, sans-serif;
-  background: #f8f8f8;
+  font-family: Times New Roman, sans-serif;
+  background: #fffff0;
   text-align: center;
 }
 
 .organigramme ul {
-  padding-top: 20px;
+  padding-top: 40px;
   position: relative;
   list-style: none;
 }
@@ -26,7 +26,7 @@ body {
   top: 0;
   width: 50%;
   height: 20px;
-  border-top: 2px solid #555;
+  border-top: 1px solid #555;
 }
 
 .organigramme li::before {
@@ -47,16 +47,16 @@ body {
   position: absolute;
   top: 0;
   left: 50%;
-  border-left: 2px solid #555;
-  height: 20px;
+  border-left: 1px solid #555;
+  height: 30px;
 }
 
 /* boîtes */
 .box {
   padding: 10px 15px;
-  border: 2px solid #333;
-  border-radius: 6px;
-  background: white;
+  border: 1px solid black;
+  border-radius: 0px;
+  background: #fafafa;
   cursor: pointer;
   transition: 0.2s;
 }
@@ -67,5 +67,6 @@ body {
 
 .main {
   font-weight: bold;
-  background: #dfe9ff;
+  background: white;
+  text-transform: uppercase;
 }
