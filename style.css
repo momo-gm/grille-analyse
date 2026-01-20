@@ -1,0 +1,71 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f8f8f8;
+  text-align: center;
+}
+
+.organigramme ul {
+  padding-top: 20px;
+  position: relative;
+  list-style: none;
+}
+
+.organigramme li {
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+  margin: 0 20px;
+  position: relative;
+}
+
+/* lignes */
+.organigramme li::before,
+.organigramme li::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 20px;
+  border-top: 2px solid #555;
+}
+
+.organigramme li::before {
+  right: 50%;
+}
+
+.organigramme li::after {
+  left: 50%;
+}
+
+.organigramme li:only-child::before,
+.organigramme li:only-child::after {
+  display: none;
+}
+
+.organigramme ul ul::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  border-left: 2px solid #555;
+  height: 20px;
+}
+
+/* boîtes */
+.box {
+  padding: 10px 15px;
+  border: 2px solid #333;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.box:hover {
+  background: #e6f0ff;
+}
+
+.main {
+  font-weight: bold;
+  background: #dfe9ff;
+}
