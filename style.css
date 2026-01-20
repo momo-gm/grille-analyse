@@ -103,3 +103,7 @@ body {
   min-width: 220px;
   text-align: left;
 }
+
+.horizontal li > ul {
+  display: none;
+}
