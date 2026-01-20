@@ -1,6 +1,6 @@
 body {
   font-family: Times New Roman, sans-serif;
-  background: #fffff0;
+  background: #ffffff;
   text-align: center;
 }
 
@@ -69,4 +69,37 @@ body {
   font-weight: bold;
   background: white;
   text-transform: uppercase;
+
+}
+.horizontal li::before,
+.horizontal li::after,
+.horizontal ul ul::before {
+  display: none;
+}
+
+.horizontal > ul {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.horizontal li {
+  display: flex;
+  align-items: flex-start;
+  margin: 15px 0;
+}
+
+.horizontal li > ul {
+  margin-left: 30px;
+  padding-top: 0;
+}
+
+.horizontal li > ul > li {
+  display: block;
+  margin: 8px 0;
+}
+
+.horizontal .main {
+  min-width: 220px;
+  text-align: left;
 }
