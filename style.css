@@ -107,3 +107,7 @@ body {
 .horizontal li > ul {
   display: none;
 }
+
+.horizontal li > ul > li > ul {
+  margin-left: 20px;
+}
