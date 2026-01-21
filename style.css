@@ -111,3 +111,15 @@ body {
 .horizontal li > ul > li > ul {
   margin-left: 20px;
 }
+
+/* Chaque niveau enfant devient une colonne verticale */
+.horizontal li > ul {
+  display: flex;
+  flex-direction: column;
+  margin-left: 30px;
+}
+
+/* Assure que chaque item peut accueillir une colonne à droite */
+.horizontal li {
+  align-items: flex-start;
+}
