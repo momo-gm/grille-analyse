@@ -123,3 +123,21 @@ body {
 .horizontal li {
   align-items: flex-start;
 }
+
+/* Chaque UL en mode horizontal devient une colonne */
+.horizontal ul {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Chaque LI peut contenir une colonne à droite */
+.horizontal li {
+  display: flex;
+  align-items: flex-start;
+}
+
+/* Les UL imbriqués se placent à droite */
+.horizontal li > ul {
+  margin-left: 30px;
+}
+
