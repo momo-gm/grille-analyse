@@ -4,12 +4,12 @@
 body {
   background-color: #f9f9f9; /* couleur de fond de la page */
   margin: 0;
-  font-family: Arial, sans-serif; /* police générale */
+  font-family: Times New Roman, sans-serif; /* police générale */
 }
 
 h1 {
   text-align: center; /* titre centré */
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   font-size: 2em;
 }
 
@@ -39,7 +39,7 @@ h1 {
 .organigramme li > ul {
   display: none;
   flex-direction: column;
-  margin-left: 20px; /* indentation pour chaque niveau */
+  margin-left: 30px; /* indentation pour chaque niveau */
 }
 
 /* =============================
@@ -48,7 +48,7 @@ h1 {
 .box {
   padding: 8px 12px;
   border: 1px solid #444;
-  margin-bottom: 8px;
+  margin-bottom: 20px;
   cursor: default;
   background-color: #fff;
 }
@@ -57,7 +57,7 @@ h1 {
 .organigramme > ul > li > .box.main {
   font-variant: small-caps; /* petites majuscules */
   font-weight: bold;
-  font-size: 1.1em;
+  font-size: 1.5em;
   cursor: pointer;
   background-color: #f2f2f2;
 }
