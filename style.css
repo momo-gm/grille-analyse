@@ -5,20 +5,33 @@
   margin: 0;
 }
 
-/* Mode horizontal : chaque niveau = colonne */
-.organigramme.horizontal > ul {
+h1 {
+  text-align: center;
+  margin-bottom: 30px; /* espace sous le titre */
+  font-size: 2em; /* ajustable selon ton goût */
+}
+
+body {
+  background-color: #f9f9f9; /* remplace par ta couleur préférée */
+  margin: 0;
+  font-family: Times New Roman, sans-serif; /* ou celle que tu veux */
+}
+
+/* Mode vertical : chaque niveau = colonne */
+.organigramme.vertical > ul {
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
 }
 
 /* Chaque item peut contenir une colonne */
-.organigramme.horizontal li {
+.organigramme.vertical li {
   display: flex;
   align-items: flex-start;
 }
 
 /* Les sous-listes sont des colonnes verticales */
-.organigramme.horizontal li > ul {
+.organigramme.vertical li > ul {
   display: none;              /* caché au départ */
   flex-direction: column;
   margin-left: 30px;
@@ -37,6 +50,16 @@
   text-transform: none;
   cursor: pointer;
   background: #f2f2f2;
+}
+
+.organigramme > ul > li > .box.main {
+  font-variant: small-caps; /* petites majuscules */
+  font-weight: bold;
+  font-size: 1.1em; /* légèrement plus grand si tu veux */
+}
+
+.organigramme li > ul {
+  margin-left: 30px; /* indentation pour chaque niveau */
 }
 
 
