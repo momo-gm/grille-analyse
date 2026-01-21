@@ -88,4 +88,10 @@ h1 {
   flex-direction: column;
 }
 
+/* Sous-sous-catégories (niveau 3) */
+.organigramme li > ul > li > ul > li > .box {
+  font-size: 0.85em;    /* plus petit */
+  font-style: italic;   /* italique */
+  font-weight: normal;  /* pas gras, juste pour être sûr */
+}
 
