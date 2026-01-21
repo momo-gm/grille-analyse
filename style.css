@@ -1,65 +1,91 @@
-/* Structure générale */
+/* =============================
+   0. Reset / structure de base
+============================= */
+body {
+  background-color: #f9f9f9; /* couleur de fond de la page */
+  margin: 0;
+  font-family: Arial, sans-serif; /* police générale */
+}
+
+h1 {
+  text-align: center; /* titre centré */
+  margin-bottom: 20px;
+  font-size: 2em;
+}
+
+/* Remove default list styles */
 .organigramme ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-h1 {
-  text-align: center;
-  margin-bottom: 30px; /* espace sous le titre */
-  font-size: 2em; /* ajustable selon ton goût */
-}
-
-body {
-  background-color: #f9f9f9; /* remplace par ta couleur préférée */
-  margin: 0;
-  font-family: Times New Roman, sans-serif; /* ou celle que tu veux */
-}
-
-/* Mode vertical : chaque niveau = colonne */
+/* =============================
+   1. Organigramme vertical
+============================= */
 .organigramme.vertical > ul {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* catégories principales empilées verticalement */
   align-items: flex-start;
 }
 
-/* Chaque item peut contenir une colonne */
-.organigramme.vertical li {
+/* Chaque LI peut contenir une colonne verticale */
+.organigramme li {
   display: flex;
   align-items: flex-start;
 }
 
-/* Les sous-listes sont des colonnes verticales */
-.organigramme.vertical li > ul {
-  display: none;              /* caché au départ */
+/* Sous-listes imbriquées : colonnes verticales, cachées au départ */
+.organigramme li > ul {
+  display: none;
   flex-direction: column;
-  margin-left: 30px;
+  margin-left: 20px; /* indentation pour chaque niveau */
 }
 
-/* Boîtes */
+/* =============================
+   2. Boîtes
+============================= */
 .box {
   padding: 8px 12px;
   border: 1px solid #444;
   margin-bottom: 8px;
   cursor: default;
+  background-color: #fff;
 }
 
-.box.main {
-  font-weight: normal;        /* PAS de majuscules */
-  text-transform: none;
-  cursor: pointer;
-  background: #f2f2f2;
-}
-
+/* Catégories principales de niveau 1 */
 .organigramme > ul > li > .box.main {
   font-variant: small-caps; /* petites majuscules */
   font-weight: bold;
-  font-size: 1.1em; /* légèrement plus grand si tu veux */
+  font-size: 1.1em;
+  cursor: pointer;
+  background-color: #f2f2f2;
 }
 
-.organigramme li > ul {
-  margin-left: 30px; /* indentation pour chaque niveau */
+/* Sous-catégories et sous-sous-catégories */
+.horizontal ul ul .box,
+.vertical ul ul .box {
+  font-weight: normal;
+  text-transform: none;
+  cursor: pointer;
+  background-color: #fff;
+}
+
+/* =============================
+   3. Optionnel : style hover
+============================= */
+.box:hover {
+  background-color: #e0e0e0;
+  transition: background-color 0.2s ease;
+}
+
+/* =============================
+   4. Affichage flex pour chaque niveau
+   Lorsqu’on clique (JS change display)
+============================= */
+.horizontal li > ul,
+.vertical li > ul {
+  flex-direction: column;
 }
 
 
