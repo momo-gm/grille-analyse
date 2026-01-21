@@ -72,6 +72,20 @@ h1 {
   background-color: #fff;
 }
 
+/* Sous-sous-catégories (niveau 3) sans boîte */
+.organigramme li > ul > li > ul > li > .box {
+  font-size: 0.85em;    /* plus petit */
+  font-style: italic;   /* italique */
+  font-weight: normal;  /* pas gras */
+  
+  /* Suppression de l'encadrement */
+  border: none;         /* plus de bordure */
+  padding: 0;           /* plus d'espace interne */
+  margin-bottom: 4px;   /* optionnel, juste pour un petit espace */
+  background-color: transparent; /* fond transparent */
+}
+
+
 /* =============================
    3. Optionnel : style hover
 ============================= */
