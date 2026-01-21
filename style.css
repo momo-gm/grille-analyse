@@ -2,14 +2,14 @@
    0. Reset / structure de base
 ============================= */
 body {
-  background-color: #f9f9f9; /* couleur de fond de la page */
+  background-color: #f9f9f9; /* couleur de fond */
   margin: 0;
-  font-family: Times New Roman, sans-serif; /* police générale */
+  font-family: "Helvetica Neue", Arial, sans-serif;
 }
 
 h1 {
-  text-align: center; /* titre centré */
-  margin-bottom: 30px;
+  text-align: center;
+  margin-bottom: 40px;
   font-size: 2em;
 }
 
@@ -25,104 +25,95 @@ h1 {
 ============================= */
 .organigramme.vertical > ul {
   display: flex;
-  flex-direction: column; /* catégories principales empilées verticalement */
+  flex-direction: column; /* catégories principales verticales */
   align-items: flex-start;
-   margin-left:100px;
 }
 
-/* Chaque LI peut contenir une colonne verticale */
 .organigramme li {
   display: flex;
   align-items: flex-start;
 }
 
-/* Sous-listes imbriquées : colonnes verticales, cachées au départ */
+/* Sous-listes imbriquées */
 .organigramme li > ul {
-  display: none;
-  flex-direction: column;
-  margin-left: 30px; /* indentation pour chaque niveau */
+  display: none;            /* caché au départ */
+  flex-direction: column;   /* colonne verticale */
+  margin-left: 100px;        /* espacement entre niveaux */
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.2s ease;
 }
 
 /* =============================
-   2. Boîtes
+   2. Boîtes générales
 ============================= */
 .box {
   padding: 8px 12px;
-  border: 1px solid #444;
-  margin-bottom: 20px;
+  border-radius: 8px;
+  margin-bottom: 8px;
   cursor: default;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   background-color: #fff;
+  transition: all 0.2s ease;
 }
 
-/* Catégories principales de niveau 1 */
+/* Hover général */
+.box:hover {
+  transform: translateY(-2px);
+  background-color: #f0f0f0;
+}
+
+/* =============================
+   3. Catégories principales (niveau 1)
+============================= */
 .organigramme > ul > li > .box.main {
-  font-variant: small-caps; /* petites majuscules */
+  font-variant: small-caps;
   font-weight: bold;
-  font-size: 1.5em;
+  font-size: 1.1em;
   cursor: pointer;
   background-color: #f2f2f2;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
 }
 
-/* Sous-catégories et sous-sous-catégories */
-.horizontal ul ul .box,
-.vertical ul ul .box {
+/* =============================
+   4. Sous-catégories (niveau 2)
+============================= */
+.organigramme li > ul > li > .box {
+  background-color: #e8f0fe;  /* bleu très clair */
+  border: 1px solid #a0c4ff;
   font-weight: normal;
-  text-transform: none;
+  font-size: 0.95em;
+  border-radius: 6px;
   cursor: pointer;
-  background-color: #fff;
 }
 
-/* Sous-sous-catégories (niveau 3) sans boîte */
+.organigramme li > ul > li > .box:hover {
+  background-color: #d0e2ff;
+  transform: translateY(-2px);
+}
+
+/* =============================
+   5. Sous-sous-catégories (niveau 3)
+============================= */
 .organigramme li > ul > li > ul > li > .box {
-  font-size: 0.85em;    /* plus petit */
-  font-style: italic;   /* italique */
-  font-weight: normal;  /* pas gras */
-  
-  /* Suppression de l'encadrement */
-  border: none;         /* plus de bordure */
-  padding: 0;           /* plus d'espace interne */
-  margin-bottom: 4px;   /* optionnel, juste pour un petit espace */
+  font-size: 0.85em;
+  font-style: italic;
+  font-weight: normal;
+
+  border: none;                 /* plus de bordure */
+  padding: 0;                   /* plus d'espace autour du texte */
+  margin-bottom: 4px;           /* petit espace pour lisibilité */
   background-color: transparent; /* fond transparent */
-}
-
-
-/* =============================
-   3. Optionnel : style hover
-============================= */
-.box:hover {
-  background-color: #e0e0e0;
-  transition: background-color 0.2s ease;
+  color: #555;
 }
 
 /* =============================
-   4. Affichage flex pour chaque niveau
-   Lorsqu’on clique (JS change display)
+   6. Affichage lors du clic (JS)
 ============================= */
-.horizontal li > ul,
-.vertical li > ul {
-  flex-direction: column;
+.organigramme li > ul.show {
+  display: flex;
 }
 
-body {
-  background-image: url('https://www.archiveslesbiennesduquebec.ca/wp-content/uploads/2022/08/20220324162814051_0020-1583x2048.jpg');
-  background-repeat: no-repeat;       /* évite la répétition de l'image */
-  background-size: cover;             /* couvre tout l’écran */
-  background-position: center;        /* centrage de l’image */
-  background-attachment: fixed;       /* l’image reste fixe quand tu scrolles */
-  margin: 0;
-  font-family: Times New Roman, sans-serif;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255,255,255,0.6); /* blanc semi-transparent */
-  z-index: -1; /* derrière tout le contenu */
-}
 
 
 
