@@ -1,149 +1,42 @@
-body {
-  font-family: Times New Roman, sans-serif;
-  background: #ffffff;
-  text-align: center;
-}
-
+/* Structure générale */
 .organigramme ul {
-  padding-top: 40px;
-  position: relative;
   list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.organigramme li {
-  display: inline-block;
-  vertical-align: top;
-  text-align: center;
-  margin: 0 20px;
-  position: relative;
+/* Mode horizontal : chaque niveau = colonne */
+.organigramme.horizontal > ul {
+  display: flex;
+  align-items: flex-start;
 }
 
-/* lignes */
-.organigramme li::before,
-.organigramme li::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  width: 50%;
-  height: 20px;
-  border-top: 1px solid #555;
+/* Chaque item peut contenir une colonne */
+.organigramme.horizontal li {
+  display: flex;
+  align-items: flex-start;
 }
 
-.organigramme li::before {
-  right: 50%;
+/* Les sous-listes sont des colonnes verticales */
+.organigramme.horizontal li > ul {
+  display: none;              /* caché au départ */
+  flex-direction: column;
+  margin-left: 30px;
 }
 
-.organigramme li::after {
-  left: 50%;
-}
-
-.organigramme li:only-child::before,
-.organigramme li:only-child::after {
-  display: none;
-}
-
-.organigramme ul ul::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50%;
-  border-left: 1px solid #555;
-  height: 30px;
-}
-
-/* boîtes */
+/* Boîtes */
 .box {
-  padding: 10px 15px;
-  border: 1px solid black;
-  border-radius: 0px;
-  background: #fafafa;
-  cursor: pointer;
-  transition: 0.2s;
+  padding: 8px 12px;
+  border: 1px solid #444;
+  margin-bottom: 8px;
+  cursor: default;
 }
 
-.box:hover {
-  background: #e6f0ff;
-}
-
-.main {
-  font-weight: bold;
-  background: white;
-  text-transform: uppercase;
-
-}
-.horizontal li::before,
-.horizontal li::after,
-.horizontal ul ul::before {
-  display: none;
-}
-
-.horizontal > ul {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.horizontal li {
-  display: flex;
-  align-items: flex-start;
-  margin: 15px 0;
-}
-
-.horizontal li > ul {
-  margin-left: 30px;
-  padding-top: 0;
-}
-
-.horizontal li > ul > li {
-  display: block;
-  margin: 8px 0;
-}
-
-.horizontal .main {
-  min-width: 220px;
-  text-align: left;
-}
-
-.horizontal li > ul {
-  display: none;
-}
-
-.horizontal li > ul > li > ul {
-  margin-left: 20px;
-}
-
-/* Chaque niveau enfant devient une colonne verticale */
-.horizontal li > ul {
-  display: flex;
-  flex-direction: column;
-  margin-left: 30px;
-}
-
-/* Assure que chaque item peut accueillir une colonne à droite */
-.horizontal li {
-  align-items: flex-start;
-}
-
-/* Chaque UL en mode horizontal devient une colonne */
-.horizontal ul {
-  display: flex;
-  flex-direction: column;
-}
-
-/* Chaque LI peut contenir une colonne à droite */
-.horizontal li {
-  display: flex;
-  align-items: flex-start;
-}
-
-/* Les UL imbriqués se placent à droite */
-.horizontal li > ul {
-  margin-left: 30px;
-}
-
-/* Réinitialisation pour les sous-niveaux */
-.horizontal ul ul .box {
-  font-weight: normal;
+.box.main {
+  font-weight: normal;        /* PAS de majuscules */
   text-transform: none;
+  cursor: pointer;
+  background: #f2f2f2;
 }
+
 
