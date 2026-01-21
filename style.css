@@ -110,7 +110,7 @@ body {
   background-position: center;        /* centrage de l’image */
   background-attachment: fixed;       /* l’image reste fixe quand tu scrolles */
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: Times New Roman, sans-serif;
 }
 
 body::before {
