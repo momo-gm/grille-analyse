@@ -4,7 +4,7 @@
 body {
   background-color: #f9f9f9; /* couleur de fond */
   margin: 0;
-  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-family: Times New Roman, sans-serif;
 }
 
 h1 {
@@ -71,7 +71,7 @@ h1 {
   font-weight: bold;
   font-size: 1.1em;
   cursor: pointer;
-  background-color: #f2f2f2;
+  background-color: #F6F2EC;
   box-shadow: 0 3px 8px rgba(0,0,0,0.15);
 }
 
@@ -79,8 +79,8 @@ h1 {
    4. Sous-catégories (niveau 2)
 ============================= */
 .organigramme li > ul > li > .box {
-  background-color: #e8f0fe;  /* bleu très clair */
-  border: 1px solid #a0c4ff;
+  background-color: #fafafa;  
+  border: 1px solid #EFD7B2;
   font-weight: normal;
   font-size: 0.95em;
   border-radius: 6px;
@@ -88,7 +88,7 @@ h1 {
 }
 
 .organigramme li > ul > li > .box:hover {
-  background-color: #d0e2ff;
+  background-color: #FDECD4;
   transform: translateY(-2px);
 }
 
@@ -96,7 +96,7 @@ h1 {
    5. Sous-sous-catégories (niveau 3)
 ============================= */
 .organigramme li > ul > li > ul > li > .box {
-  font-size: 0.85em;
+  font-size: 0.95em;
   font-style: italic;
   font-weight: normal;
 
@@ -112,6 +112,27 @@ h1 {
 ============================= */
 .organigramme li > ul.show {
   display: flex;
+}
+
+body {
+  background-image: url('https://www.archiveslesbiennesduquebec.ca/wp-content/uploads/2022/08/20220324162814051_0020-1583x2048.jpg');
+  background-repeat: no-repeat;       /* évite la répétition de l'image */
+  background-size: cover;             /* couvre tout l’écran */
+  background-position: center;        /* centrage de l’image */
+  background-attachment: fixed;       /* l’image reste fixe quand tu scrolles */
+  margin: 0;
+  font-family: Times New Roman, sans-serif;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255,255,255,0.6); /* blanc semi-transparent */
+  z-index: -1; /* derrière tout le contenu */
 }
 
 
