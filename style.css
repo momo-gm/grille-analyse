@@ -13,7 +13,8 @@ h1 {
   margin-bottom: 65px;
   font-size: 2em;
    text-decoration: underline;
-  text-decoration-color: currentColor;
+   text-decoration-style: wavy;
+  text-decoration-color: black;
   text-decoration-thickness: 1,2px;
   text-underline-offset: 6px;
 
