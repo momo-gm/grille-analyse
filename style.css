@@ -49,7 +49,7 @@ h1 {
 ============================= */
 .box {
   padding: 8px 12px;
-  border-radius: 8px;
+  border-radius: 1px;
   margin-bottom: 8px;
   cursor: default;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -70,6 +70,7 @@ h1 {
   font-variant: small-caps;
   font-weight: bold;
   font-size: 1.1em;
+   margin-left: 100px;
   cursor: pointer;
   background-color: #F6F2EC;
   box-shadow: 0 3px 8px rgba(0,0,0,0.15);
@@ -103,8 +104,8 @@ h1 {
   border: none;                 /* plus de bordure */
   padding: 0;                   /* plus d'espace autour du texte */
   margin-bottom: 4px;           /* petit espace pour lisibilité */
-  background-color: transparent; /* fond transparent */
-  color: #555;
+  background-color: #FFFFFE; /* fond transparent */
+  color: #242424;
 }
 
 /* =============================
