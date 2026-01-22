@@ -49,8 +49,8 @@ h1 {
 ============================= */
 .box {
   padding: 8px 12px;
-  border-radius: 1px;
-  margin-bottom: 8px;
+  border-radius: 50% 20% / 10% 40%;
+  margin-bottom: 20px;
   cursor: default;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   background-color: #fff;
@@ -69,7 +69,7 @@ h1 {
 .organigramme > ul > li > .box.main {
   font-variant: small-caps;
   font-weight: bold;
-  font-size: 1.1em;
+  font-size: 1.5em;
    margin-left: 100px;
   cursor: pointer;
   background-color: #F6F2EC;
@@ -83,7 +83,8 @@ h1 {
   background-color: #fafafa;  
   border: 1px solid #EFD7B2;
   font-weight: normal;
-  font-size: 0.95em;
+  font-size: 1.1em;
+   margin-bottom: 12px;
   border-radius: 6px;
   cursor: pointer;
 }
