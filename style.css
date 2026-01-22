@@ -10,11 +10,11 @@ body {
 h1 {
   position: relative;
    text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 65px;
   font-size: 2em;
    text-decoration: underline;
   text-decoration-color: currentColor;
-  text-decoration-thickness: 1,5px;
+  text-decoration-thickness: 1,2px;
   text-underline-offset: 6px;
 
    z-index: 1;
@@ -29,7 +29,7 @@ h1::before {
 
   width: 70%;      /* dépasse largement le texte */
   height: 200%;     /* hauteur du rectangle */
-  background-color: white;
+  background-color: #F6F2EC;
 
   z-index: -1;
 }
