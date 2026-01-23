@@ -10,7 +10,8 @@ body {
 h1 {
   position: relative;
    text-align: center;
-  margin-bottom: 65px;
+  margin-top: 20px;
+   margin-bottom: 65px;
   font-size: 2em;
    text-decoration: underline;
    text-decoration-style: wavy;
