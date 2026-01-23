@@ -28,7 +28,7 @@ h1::before {
   left: 50%;
   transform: translate(-50%, -50%);
 
-  width: 70%;      /* dépasse largement le texte */
+  width: 60%;      /* dépasse largement le texte */
   height: 200%;     /* hauteur du rectangle */
   background-color: #F6F2EC;
 
