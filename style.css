@@ -14,9 +14,9 @@ h1 {
    margin-bottom: 65px;
   font-size: 2em;
    text-decoration: underline;
-   text-decoration-style: wavy;
+   text-decoration-style: double;
   text-decoration-color: black;
-  text-decoration-thickness: 1,2px;
+  text-decoration-thickness: 1px;
   text-underline-offset: 6px;
 
    z-index: 1;
