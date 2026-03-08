@@ -3,292 +3,537 @@
 <head>
   <meta charset="UTF-8">
   <title>Grille d'analyse</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    /* =============================
+       0. Reset / base
+    ============================= */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Times New Roman', serif;
+      background-color: #b2bfaa;
+      min-height: 100vh;
+    }
+
+    /* =============================
+       1. En-tête & titre
+    ============================= */
+    h1 {
+      position: relative;
+      text-align: center;
+      margin: 36px auto 28px;
+      font-size: 2em;
+      text-decoration: none;
+      padding-bottom: 18px;
+      z-index: 1;
+      animation: fadeDown 0.6s ease both;
+    }
+
+    h1::after {
+      content: "❧ ✦ ❧";
+      display: block;
+      text-align: center;
+      font-size: 0.45em;
+      letter-spacing: 0.25em;
+      color: #b8935a;
+      margin-top: 10px;
+      opacity: 0.85;
+    }
+
+    h1::before {
+      content: "";
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60%;
+      height: 200%;
+      background-color: #F6F2EC;
+      z-index: -1;
+    }
+
+    /* =============================
+       2. Barre de recherche
+    ============================= */
+    #search-container {
+      display: flex;
+      justify-content: center;
+      margin: 0 auto 40px;
+      padding: 0 20px;
+      animation: fadeDown 0.7s ease 0.1s both;
+    }
+
+    #search-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 520px;
+    }
+
+    #search-input {
+      width: 100%;
+      padding: 10px 44px 10px 16px;
+      font-family: 'Times New Roman', serif;
+      font-size: 1em;
+      border: 1px solid #EFD7B2;
+      border-radius: 4px;
+      background-color: #F6F2EC;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    #search-input:focus {
+      border-color: #c9a87c;
+      box-shadow: 0 2px 10px rgba(201,168,124,0.25);
+    }
+
+    #search-input::placeholder {
+      color: #aaa;
+      font-style: italic;
+    }
+
+    #search-icon {
+      position: absolute;
+      right: 13px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #c9a87c;
+      pointer-events: none;
+      font-size: 1em;
+    }
+
+    #no-results {
+      display: none;
+      text-align: center;
+      color: #888;
+      font-style: italic;
+      margin-top: -20px;
+      margin-bottom: 20px;
+      font-size: 0.95em;
+      animation: fadeIn 0.3s ease;
+    }
+
+    /* =============================
+       3. Organigramme
+    ============================= */
+    .organigramme ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .organigramme.vertical > ul {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .organigramme li {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    /* Sous-listes imbriquées */
+    .organigramme li > ul {
+      display: none;
+      flex-direction: column;
+      margin-left: 100px;
+      overflow: hidden;
+    }
+
+    /* =============================
+       5. Boîtes
+    ============================= */
+    .box {
+      padding: 8px 12px;
+      border-radius: 0px;
+      margin-bottom: 30px;
+      cursor: default;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      background-color: #fff;
+      transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .box:hover {
+      transform: translateY(-2px);
+      background-color: #f0f0f0;
+    }
+
+    /* Catégories principales */
+    .organigramme > ul > li > .box.main {
+      border: 1px solid #EFD7B2;
+      font-variant: small-caps;
+      font-weight: bold;
+      font-size: 1.5em;
+      margin-left: 100px;
+      cursor: pointer;
+      background-color: #F6F2EC;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      animation: fadeIn 0.4s ease both;
+    }
+
+    .organigramme > ul > li > .box.main:hover {
+      background-color: #FDECD4;
+      box-shadow: 0 5px 14px rgba(0,0,0,0.18);
+    }
+
+    /* Indicateur ouvert/fermé */
+    .box.main::after {
+      content: ' ▸';
+      font-size: 0.7em;
+      opacity: 0.5;
+      transition: transform 0.3s ease, opacity 0.2s;
+      display: inline-block;
+    }
+
+    .box.main.open::after {
+      transform: rotate(90deg);
+      opacity: 0.9;
+    }
+
+    /* Sous-catégories */
+    .organigramme li > ul > li > .box {
+      background-color: #fafafa;
+      border: 1px solid #EFD7B2;
+      font-weight: normal;
+      font-size: 1.1em;
+      margin-bottom: 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    }
+
+    .organigramme li > ul > li > .box:hover {
+      background-color: #FDECD4;
+      transform: translateY(-2px);
+    }
+
+    /* Sous-sous-catégories */
+    .organigramme li > ul > li > ul > li > .box {
+      font-size: 0.95em;
+      font-style: italic;
+      font-weight: normal;
+      border: none;
+      padding: 0;
+      margin-bottom: 4px;
+      background-color: #FFFFFE;
+      color: #242424;
+      box-shadow: none;
+    }
+
+    /* =============================
+       6. Animation d'ouverture CSS
+    ============================= */
+    .organigramme li > ul.show {
+      display: flex;
+    }
+
+    .organigramme li > ul.animating {
+      display: flex;
+    }
+
+    /* Entrées en cascade pour les enfants */
+    .organigramme li > ul.show > li {
+      animation: slideIn 0.28s ease both;
+    }
+
+    .organigramme li > ul.show > li:nth-child(1) { animation-delay: 0.00s; }
+    .organigramme li > ul.show > li:nth-child(2) { animation-delay: 0.04s; }
+    .organigramme li > ul.show > li:nth-child(3) { animation-delay: 0.08s; }
+    .organigramme li > ul.show > li:nth-child(4) { animation-delay: 0.12s; }
+    .organigramme li > ul.show > li:nth-child(5) { animation-delay: 0.16s; }
+    .organigramme li > ul.show > li:nth-child(6) { animation-delay: 0.20s; }
+    .organigramme li > ul.show > li:nth-child(7) { animation-delay: 0.24s; }
+    .organigramme li > ul.show > li:nth-child(8) { animation-delay: 0.28s; }
+    .organigramme li > ul.show > li:nth-child(9) { animation-delay: 0.32s; }
+
+    /* Sous-sous niveau */
+    .organigramme li > ul > li > ul.show > li {
+      animation: slideIn 0.22s ease both;
+    }
+
+    /* =============================
+       7. Mise en évidence recherche
+    ============================= */
+    .highlight {
+      background-color: #ffe8a0;
+      border-radius: 2px;
+      padding: 0 1px;
+    }
+
+    .box.search-hidden {
+      opacity: 0.2;
+      pointer-events: none;
+    }
+
+    .box.search-match {
+      border-color: #c9a87c !important;
+      box-shadow: 0 0 0 2px rgba(201,168,124,0.35) !important;
+    }
+
+    /* =============================
+       8. Keyframes
+    ============================= */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-18px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Animation d'entrée des catégories principales au chargement */
+    .organigramme > ul > li {
+      animation: fadeDown 0.5s ease both;
+    }
+    .organigramme > ul > li:nth-child(1) { animation-delay: 0.10s; }
+    .organigramme > ul > li:nth-child(2) { animation-delay: 0.18s; }
+    .organigramme > ul > li:nth-child(3) { animation-delay: 0.26s; }
+    .organigramme > ul > li:nth-child(4) { animation-delay: 0.34s; }
+    .organigramme > ul > li:nth-child(5) { animation-delay: 0.42s; }
+  </style>
 </head>
 <body>
 
 <h1>GRILLE D'ANALYSE DU CORPUS DE SOURCES</h1>
 
+<!-- Barre de recherche -->
+<div id="search-container">
+  <div id="search-wrapper">
+    <input type="text" id="search-input" placeholder="Rechercher dans la grille…" autocomplete="off">
+    <span id="search-icon">&#128269;</span>
+  </div>
+</div>
+<div id="no-results">Aucun résultat trouvé.</div>
+
+
 <div class="organigramme vertical">
 <ul>
 
-<!-- ======================
-     INFORMATIONS GÉNÉRALES
-====================== -->
+<!-- INFORMATIONS GÉNÉRALES -->
 <li>
   <div class="box main">Informations générales</div>
   <ul>
-
-    <li>
-      <div class="box">Nom de l'auteur ou autrice</div>
-      <ul>
-        <li><div class="box">Nom réel, pseudonyme ou nom d’emprunt utilisé.</div></li>
-      </ul>
-    </li>
-
-    <li>
-      <div class="box">Date de naissance ou âge</div>
-      <ul>
-        <li><div class="box">Année de naissance ou âge approximatif.</div></li>
-      </ul>
-    </li>
-
-    <li>
-      <div class="box">Titre de la série</div>
-      <ul>
-        <li><div class="box">Titre du livre, périodique ou cote du fonds d’archive.</div></li>
-      </ul>
-    </li>
-
-    <li>
-      <div class="box">Titre de la section</div>
-      <ul>
-        <li><div class="box">Chapitre, article ou dossier précis.</div></li>
-      </ul>
-    </li>
-
-    <li>
-      <div class="box">Type de source</div>
-      <ul>
-        <li><div class="box">Autobiographie, périodique, correspondance, etc.</div></li>
-      </ul>
-    </li>
-
-    <li>
-      <div class="box">Date de la rédaction</div>
-      <ul>
-        <li><div class="box">Date estimée ou exacte, si connue.</div></li>
-      </ul>
-    </li>
-
-    <li>
-      <div class="box">Date de la publication</div>
-      <ul>
-        <li><div class="box">Jour, mois et année lorsque possible.</div></li>
-      </ul>
-    </li>
-
-    <li>
-      <div class="box">Pages</div>
-      <ul>
-        <li><div class="box">Nombre total ou intervalle de pages (autobiographies et périodiques).</div></li>
-      </ul>
-    </li>
-
+    <li><div class="box">Nom de l'auteur ou autrice</div><ul><li><div class="box">Nom réel, pseudonyme ou nom d'emprunt utilisé.</div></li></ul></li>
+    <li><div class="box">Date de naissance ou âge</div><ul><li><div class="box">Année de naissance ou âge approximatif.</div></li></ul></li>
+    <li><div class="box">Titre de la série</div><ul><li><div class="box">Titre du livre, périodique ou cote du fonds d'archive.</div></li></ul></li>
+    <li><div class="box">Titre de la section</div><ul><li><div class="box">Chapitre, article ou dossier précis.</div></li></ul></li>
+    <li><div class="box">Type de source</div><ul><li><div class="box">Autobiographie, périodique, correspondance, etc.</div></li></ul></li>
+    <li><div class="box">Date de la rédaction</div><ul><li><div class="box">Date estimée ou exacte, si connue.</div></li></ul></li>
+    <li><div class="box">Date de la publication</div><ul><li><div class="box">Jour, mois et année lorsque possible.</div></li></ul></li>
+    <li><div class="box">Pages</div><ul><li><div class="box">Nombre total ou intervalle de pages (autobiographies et périodiques).</div></li></ul></li>
   </ul>
 </li>
 
-<!-- ======================
-     CARACTÉRISTIQUES IDENTITAIRES
-====================== -->
+<!-- CARACTÉRISTIQUES IDENTITAIRES -->
 <li>
   <div class="box main">Caractéristiques identitaires</div>
   <ul>
-
-    <li>
-      <div class="box">Âge ou période de développement</div>
-      <ul>
-        <li><div class="box">Enfance, adolescence, âge adulte, etc.</div></li>
-      </ul>
-    </li>
-
-    <li>
-      <div class="box">Orientation sexuelle</div>
-      <ul>
-        <li><div class="box">Orientation mentionnée ou suggérée.</div></li>
-      </ul>
-    </li>
-
-    <li>
-      <div class="box">Sentiments vis-à-vis de la sexualité</div>
-      <ul>
-        <li><div class="box">Rapport personnel à la sexualité.</div></li>
-      </ul>
-    </li>
-
-    <li>
-      <div class="box">Genre</div>
-      <ul>
-        <li><div class="box">Genre revendiqué ou suggéré, lorsqu'applicable</div></li>
-      </ul>
-    </li>
-
-    <li>
-      <div class="box">Expression de genre</div>
-      <ul>
-        <li><div class="box">Tout élément identifié comme étant important à l'expression de genre de l'auteurice.</div></li>
-      </ul>
-    </li>
-
-    <li>
-      <div class="box">Sentiments vis-à-vis du genre</div>
-      <ul>
-        <li><div class="box">Tout sentiment exprimé vis-à-vis du genre en général.</div></li>
-      </ul>
-    </li>
-
-    <li>
-      <div class="box">Appartenance linguistique</div>
-      <ul>
-        <li><div class="box">Langue(s) utilisée(s) et/ou inférée(s).</div></li>
-      </ul>
-    </li>
-
-    <li>
-      <div class="box">Appartenance socioéconomique</div>
-      <ul>
-        <li><div class="box">Classe sociale, profession ou références à son statut socioéconomique.</div></li>
-      </ul>
-    </li>
-
-    <li>
-      <div class="box">Appartenance ethnoculturelle</div>
-      <ul>
-        <li><div class="box">Origines ou identités ethnoculturelles évoquées.</div></li>
-      </ul>
-    </li>
-
+    <li><div class="box">Âge ou période de développement</div><ul><li><div class="box">Enfance, adolescence, âge adulte, etc.</div></li></ul></li>
+    <li><div class="box">Orientation sexuelle</div><ul><li><div class="box">Orientation mentionnée ou suggérée.</div></li></ul></li>
+    <li><div class="box">Sentiments vis-à-vis de la sexualité</div><ul><li><div class="box">Rapport personnel à la sexualité.</div></li></ul></li>
+    <li><div class="box">Genre</div><ul><li><div class="box">Genre revendiqué ou suggéré, lorsqu'applicable.</div></li></ul></li>
+    <li><div class="box">Expression de genre</div><ul><li><div class="box">Tout élément identifié comme étant important à l'expression de genre de l'auteurice.</div></li></ul></li>
+    <li><div class="box">Sentiments vis-à-vis du genre</div><ul><li><div class="box">Tout sentiment exprimé vis-à-vis du genre en général.</div></li></ul></li>
+    <li><div class="box">Appartenance linguistique</div><ul><li><div class="box">Langue(s) utilisée(s) et/ou inférée(s).</div></li></ul></li>
+    <li><div class="box">Appartenance socioéconomique</div><ul><li><div class="box">Classe sociale, profession ou références à son statut socioéconomique.</div></li></ul></li>
+    <li><div class="box">Appartenance ethnoculturelle</div><ul><li><div class="box">Origines ou identités ethnoculturelles évoquées.</div></li></ul></li>
   </ul>
 </li>
 
-<!-- ======================
-     ESPACES ET GÉOGRAPHIE
-====================== -->
+<!-- ESPACES ET GÉOGRAPHIE -->
 <li>
   <div class="box main">Espaces et géographie</div>
   <ul>
-
-    <li>
-      <div class="box">Référent géographique précis</div>
-      <ul>
-        <li><div class="box">Ville, région ou lieu nommé.</div></li>
-      </ul>
-    </li>
-
-    <li>
-      <div class="box">Type de milieu</div>
-      <ul>
-        <li><div class="box">Urbain, périurbain ou rural.</div></li>
-      </ul>
-    </li>
-
-    <li>
-      <div class="box">Mobilité et échanges</div>
-      <ul>
-        <li><div class="box">Niveau de mobilité (faible, moyen, grand) au niveau interurbain/interrégional, national ou international.</div></li>
-      </ul>
-    </li>
-
-    <li>
-      <div class="box">Mobilité nationale</div>
-      <ul>
-        <li><div class="box">Déplacements à l'intérieur du Canada.</div></li>
-      </ul>
-    </li>
-
-    <li>
-      <div class="box">Mobilité internationale</div>
-      <ul>
-        <li><div class="box">Déplacements à l'extérieur du Canada.</div></li>
-      </ul>
-    </li>
-
+    <li><div class="box">Référent géographique précis</div><ul><li><div class="box">Ville, région ou lieu nommé.</div></li></ul></li>
+    <li><div class="box">Type de milieu</div><ul><li><div class="box">Urbain, périurbain ou rural.</div></li></ul></li>
+    <li><div class="box">Mobilité et échanges</div><ul><li><div class="box">Niveau de mobilité (faible, moyen, grand) au niveau interurbain/interrégional, national ou international.</div></li></ul></li>
+    <li><div class="box">Mobilité nationale</div><ul><li><div class="box">Déplacements à l'intérieur du Canada.</div></li></ul></li>
+    <li><div class="box">Mobilité internationale</div><ul><li><div class="box">Déplacements à l'extérieur du Canada.</div></li></ul></li>
   </ul>
 </li>
 
-<!-- ======================
-     ASPECTS RELATIONNELS
-====================== -->
+<!-- ASPECTS RELATIONNELS -->
 <li>
   <div class="box main">Aspects relationnels</div>
   <ul>
-
-    <li>
-      <div class="box">Amitié et entraide</div>
-      <ul>
-        <li><div class="box">Toute relation d'entraide ou d'amitié avec une autre personne</div></li>
-      </ul>
-    </li>
-
-    <li>
-      <div class="box">Amours</div>
-      <ul>
-        <li><div class="box">Relations romantiques et/ou sexuelles.</div></li>
-      </ul>
-    </li>
-
-    <li>
-      <div class="box">Parenté biologique</div>
-      <ul>
-        <li><div class="box">Relation filiale et famille biologique. Parents, enfants, oncles et tantes, cousins et cousines, etc.</div></li>
-      </ul>
-    </li>
-
-    <li>
-      <div class="box">Parenté choisie</div>
-      <ul>
-        <li><div class="box">Relation significative avec une personne sans lien biologique, considérée aussi forte sinon plus qu'un lien filial.</div></li>
-      </ul>
-    </li>
-
-    <li>
-      <div class="box">Conflits et relations conflictuelles</div>
-      <ul>
-        <li><div class="box">Antagonisme vécus ou perçus de la part d'une autre personne.</div></li>
-      </ul>
-    </li>
-
+    <li><div class="box">Amitié et entraide</div><ul><li><div class="box">Toute relation d'entraide ou d'amitié avec une autre personne.</div></li></ul></li>
+    <li><div class="box">Amours</div><ul><li><div class="box">Relations romantiques et/ou sexuelles.</div></li></ul></li>
+    <li><div class="box">Parenté biologique</div><ul><li><div class="box">Relation filiale et famille biologique. Parents, enfants, oncles et tantes, cousins et cousines, etc.</div></li></ul></li>
+    <li><div class="box">Parenté choisie</div><ul><li><div class="box">Relation significative avec une personne sans lien biologique, considérée aussi forte sinon plus qu'un lien filial.</div></li></ul></li>
+    <li><div class="box">Conflits et relations conflictuelles</div><ul><li><div class="box">Antagonisme vécus ou perçus de la part d'une autre personne.</div></li></ul></li>
   </ul>
 </li>
 
-  <!-- ======================
-     ASPECTS SOCIOPOLITIQUES
-====================== -->
+<!-- ASPECTS SOCIOPOLITIQUES -->
 <li>
   <div class="box main">Aspects sociopolitiques</div>
   <ul>
-
-    <li>
-      <div class="box">Référents à l'actualité</div>
-      <ul>
-        <li><div class="box">Toute référence à l'actualité politique, tout ce qui est davantage public.</div></li>
-      </ul>
-    </li>
-
-    <li>
-      <div class="box">Référents à un événement</div>
-      <ul>
-        <li><div class="box">Référence à un événement (privé, semi-privé ou public). Il peut être peu connu dans la société en générale.</div></li>
-      </ul>
-    </li>
-
-    <li>
-      <div class="box">Référent au militantisme</div>
-      <ul>
-        <li><div class="box">Mentions d'organisations ou de liens avec des groupes ou individus militants dans le cadre d'une cause précise.</div></li>
-      </ul>
-    </li>
-
-    <li>
-      <div class="box">Référents à la religion</div>
-      <ul>
-        <li><div class="box">Tout référent du domaine de la religion, qu'il soit critique ou non, que l'interprétation soit personnelle ou sociale.</div></li>
-      </ul>
-    </li>
-
-    <li>
-      <div class="box">Référents à des groupes ou organisations</div>
-      <ul>
-        <li><div class="box">Toute mention d'un organisme, qu'il soit militant ou non, et de ses affiliations avec celui-ci.</div></li>
-      </ul>
-    </li>
-
+    <li><div class="box">Référents à l'actualité</div><ul><li><div class="box">Toute référence à l'actualité politique, tout ce qui est davantage public.</div></li></ul></li>
+    <li><div class="box">Référents à un événement</div><ul><li><div class="box">Référence à un événement (privé, semi-privé ou public). Il peut être peu connu dans la société en générale.</div></li></ul></li>
+    <li><div class="box">Référent au militantisme</div><ul><li><div class="box">Mentions d'organisations ou de liens avec des groupes ou individus militants dans le cadre d'une cause précise.</div></li></ul></li>
+    <li><div class="box">Référents à la religion</div><ul><li><div class="box">Tout référent du domaine de la religion, qu'il soit critique ou non, que l'interprétation soit personnelle ou sociale.</div></li></ul></li>
+    <li><div class="box">Référents à des groupes ou organisations</div><ul><li><div class="box">Toute mention d'un organisme, qu'il soit militant ou non, et de ses affiliations avec celui-ci.</div></li></ul></li>
   </ul>
 </li>
 
 </ul>
 </div>
 
-<script src="script.js"></script>
+<script>
+  // =============================================
+  // 1. TOGGLE avec animation fluide
+  // =============================================
+  function openSection(ul) {
+    ul.classList.add('show');
+  }
+
+  function closeSection(ul) {
+    ul.classList.remove('show');
+  }
+
+  document.querySelectorAll(".box").forEach(box => {
+    box.addEventListener("click", (e) => {
+      e.stopPropagation();
+
+      const li = box.closest("li");
+      if (!li) return;
+
+      const ul = li.querySelector(":scope > ul");
+      if (!ul) return;
+
+      const parentUl = li.parentElement;
+      const isOpen = ul.classList.contains('show');
+
+      // Fermer les autres au même niveau
+      parentUl.querySelectorAll(":scope > li > ul").forEach(siblingUl => {
+        if (siblingUl !== ul) {
+          closeSection(siblingUl);
+          // Retirer .open du bouton frère
+          const siblingBox = siblingUl.closest('li').querySelector(':scope > .box');
+          if (siblingBox) siblingBox.classList.remove('open');
+        }
+      });
+
+      if (isOpen) {
+        closeSection(ul);
+        box.classList.remove('open');
+      } else {
+        openSection(ul);
+        box.classList.add('open');
+      }
+    });
+  });
+
+  // =============================================
+  // 2. RECHERCHE
+  // =============================================
+  const searchInput = document.getElementById('search-input');
+  const noResults = document.getElementById('no-results');
+  const mainItems = document.querySelectorAll('.organigramme > ul > li');
+
+  function escapeRegex(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlightText(node, regex) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const text = node.textContent;
+      if (regex.test(text)) {
+        const span = document.createElement('span');
+        span.innerHTML = text.replace(regex, m => `<span class="highlight">${m}</span>`);
+        node.replaceWith(span);
+        return true;
+      }
+      return false;
+    }
+    return false;
+  }
+
+  function clearHighlights(el) {
+    el.querySelectorAll('.highlight').forEach(h => {
+      h.replaceWith(document.createTextNode(h.textContent));
+    });
+    // Normaliser les textes adjacents
+    el.normalize();
+  }
+
+  searchInput.addEventListener('input', () => {
+    const query = searchInput.value.trim();
+
+    // Reset
+    document.querySelectorAll('.box').forEach(box => {
+      clearHighlights(box);
+      box.classList.remove('search-hidden', 'search-match');
+    });
+    document.querySelectorAll('.organigramme li > ul').forEach(ul => {
+      closeSection(ul);
+    });
+    document.querySelectorAll('.box.main').forEach(b => b.classList.remove('open'));
+    noResults.style.display = 'none';
+
+    if (!query) return;
+
+    const regex = new RegExp(escapeRegex(query), 'gi');
+    let anyMatch = false;
+
+    // Parcourir toutes les catégories principales
+    mainItems.forEach(li => {
+      const mainBox = li.querySelector(':scope > .box.main');
+      const subUl   = li.querySelector(':scope > ul');
+      let categoryMatch = false;
+
+      // Chercher dans les sous-catégories (niveau 2 et 3)
+      li.querySelectorAll('li').forEach(subLi => {
+        const boxes = subLi.querySelectorAll(':scope > .box');
+        let subMatch = false;
+        boxes.forEach(box => {
+          const text = box.textContent;
+          if (regex.test(text)) {
+            subMatch = true;
+            categoryMatch = true;
+            anyMatch = true;
+            regex.lastIndex = 0;
+            // Highlight
+            box.childNodes.forEach(n => highlightText(n, regex));
+            box.classList.add('search-match');
+          }
+          regex.lastIndex = 0;
+        });
+      });
+
+      if (categoryMatch && subUl && mainBox) {
+        openSection(subUl);
+        mainBox.classList.add('open');
+
+        // Ouvrir aussi les sous-niveaux qui matchent
+        subUl.querySelectorAll(':scope > li').forEach(subLi => {
+          const subBox = subLi.querySelector(':scope > .box');
+          if (subBox && subBox.classList.contains('search-match')) {
+            const sub2Ul = subLi.querySelector(':scope > ul');
+            if (sub2Ul) openSection(sub2Ul);
+          }
+        });
+      }
+    });
+
+    noResults.style.display = anyMatch ? 'none' : 'block';
+  });
+
+  // Effacer avec Escape
+  searchInput.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      searchInput.value = '';
+      searchInput.dispatchEvent(new Event('input'));
+    }
+  });
+</script>
 </body>
 </html>
