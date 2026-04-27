@@ -39,40 +39,23 @@ body::after {
        1. En-tête & titre
     ============================= */
     h1 {
-      position: relative;
-      text-align: center;
-      margin: 36px auto 60px;
-      font-size: 2em;
-      text-decoration: none;
-      padding-bottom: 18px;
-      z-index: 1;
-      animation: fadeDown 0.6s ease both;
-    }
+  position: relative;
+  text-align: center;
+  margin: 36px auto 60px;
+  font-size: 2em;
+  text-decoration: none;
+  padding: 10px 36px 18px;
+  z-index: 1;
+  animation: fadeDown 0.6s ease both;
 
-    h1::after {
-      content: "❧ ✦ ❧";
-      display: block;
-      text-align: center;
-      font-size: 0.45em;
-      letter-spacing: 0.25em;
-      color: #1a1a1a;
-      margin-top: 10px;
-      opacity: 0.85;
-    }
+  display: table;          /* rétrécit à la largeur du contenu */
+  background-color: #F6F2EC;
+  border-radius: 2px;
+}
 
-    h1::before {
-      content: "";
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: fit-content;
-      padding: 0 32px;
-      height: 130%;
-      background-color: #F6F2EC;
-      border-radius: 2px;
-      z-index: -1;
-    }
-
+h1::before {
+  display: none;           /* on supprime l'ancien pseudo-élément */
+}
     /* =============================
        2. Barre de recherche
     ============================= */
