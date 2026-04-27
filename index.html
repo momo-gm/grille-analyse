@@ -13,6 +13,8 @@
   margin: 0;
   font-family: 'Times New Roman', serif;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 
   background-color: #e2d5c0;
   background-image:
@@ -129,6 +131,10 @@ h1::before {
     /* =============================
        3. Organigramme
     ============================= */
+    .organigramme {
+      flex: 1;
+    }
+    
     .organigramme ul {
       list-style: none;
       padding: 0;
@@ -325,14 +331,14 @@ body::before {
   background: linear-gradient(
     to bottom,
     transparent,
-    rgba(201,168,124,0.6),
-    rgba(201,168,124,0.9),
-    rgba(201,168,124,0.6),
+    rgba(0,0,0,0.3),
+    rgba(0,0,0,1),
+    rgba(0,0,0,0.3),
     transparent
   );
 
   opacity: 0.8;
-  box-shadow: 0 0 8px rgba(201,168,124,0.25);
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
 }
 
 /* Décalage du contenu */
@@ -351,15 +357,8 @@ footer {
   background-color: #F6F2EC;
   border-top: 1px solid #EFD7B2;
 
-  font-size: 0.9em;
+  font-size: 0.7em;
   color: #080808;
-}
-
-/* enlève l'effet "boîte" */
-.footer-content {
-  max-width: 900px;
-  margin-left: 100px;
-  line-height: 1.5;
 }
  
 </style>
